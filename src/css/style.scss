@@ -8,7 +8,7 @@ html {
 }
 html,
 body {
-  width: 100%;
+  width: 100vw !important;
 }
 .container {
   display: flex;
@@ -153,6 +153,32 @@ footer {
   }
   .definitions .row {
     width: 325px;
+    margin: 24px 0 0 0px;
+    column-gap: 16px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .header .search-bar {
+    width: 250px;
+  }
+  .header input {
+    width: 200px;
+  }
+
+  .definitions {
+    width: 300px;
+    word-wrap: break-word;
+  }
+  .definitions .word {
+    margin-left: 20px;
+    font-size: 48px;
+  }
+  .definitions .pronunciation {
+    margin-left: 20px;
+  }
+  .definitions .row {
+    width: 300px;
     margin: 24px 0 0 0px;
     column-gap: 16px;
   }
