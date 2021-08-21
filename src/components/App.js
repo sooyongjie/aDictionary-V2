@@ -5,13 +5,11 @@ import Definition from "./Definition";
 import { useState } from "react";
 function App() {
   let [definitions, setDefinitions] = useState({});
-  let word = document.querySelector(".word");
-  let pronunciation = document.querySelector(".pronunciation");
   // let loadingScreen = document.querySelector(".loading");
 
-  const errorMessage = () => {
-    word.textContent = "error";
-    pronunciation.textContent = "ˈerər";
+  var errorMessage = () => {
+    document.querySelector(".word").textContent = "error";
+    document.querySelector(".pronunciation").textContent = "ˈerər";
     document.querySelector(".type").textContent = "noun.";
     document.querySelector(".definition").textContent = "a mistake.";
     document.querySelector(".example").textContent =
@@ -36,8 +34,8 @@ function App() {
       .then(function (res) {
         document.querySelector(".loading").style.opacity = 0;
         setDefinitions(res.data.definitions);
-        word.textContent = res.data.word;
-        pronunciation.textContent = res.data.pronunciation;
+        document.querySelector(".word").textContent = res.data.word;
+        document.querySelector(".pronunciation").textContent = res.data.pronunciation;
       })
       .catch(function (err) {
         console.log(err.response);
