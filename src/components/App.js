@@ -5,14 +5,22 @@ import Definition from "./Definition";
 import { useState } from "react";
 function App() {
   let [definitions, setDefinitions] = useState({});
-  let [status, setStatus] = useState(0);
+  let word = document.querySelector(".word");
+  let pronunciation = document.querySelector(".pronunciation");
   // let loadingScreen = document.querySelector(".loading");
+
+  const errorMessage = () => {
+    word.textContent = "error";
+    pronunciation.textContent = "ˈerər";
+    document.querySelector(".type").textContent = "noun.";
+    document.querySelector(".definition").textContent = "a mistake.";
+    document.querySelector(".example").textContent =
+      "you have made an error in the query";
+  };
 
   const getDefinition = (e) => {
     e.preventDefault();
     let url = "";
-    let word = document.querySelector(".word");
-    let pronunciation = document.querySelector(".pronunciation");
     document.querySelector(".loading").style.opacity = 1;
     let query = document.querySelector(".input").value;
     if (!query) url = "https://owlbot.info/api/v3/dictionary/error";
@@ -26,40 +34,17 @@ function App() {
       },
     })
       .then(function (res) {
-        setStatus(200);
-        setStatus((status) => {
-          console.log(status);
-          return status;
-        });
         document.querySelector(".loading").style.opacity = 0;
         setDefinitions(res.data.definitions);
-        setDefinitions((definitions) => {
-          console.log(definitions);
-          return definitions;
-        });
         word.textContent = res.data.word;
         pronunciation.textContent = res.data.pronunciation;
       })
       .catch(function (err) {
         console.log(err.response);
-        setStatus(404);
-        setStatus((status) => {
-          console.log(status);
-          return status;
-        });
-        setDefinitions({
-          definition: {
-            num: 1,
-            type: "noun",
-            definition: "a mistake.",
-            sample: "you have made an error in the query",
-          },
-        });
+        errorMessage();
         document.querySelector(".loading").style.opacity = 0;
-      })
-      .then(function () {
-        console.log(status);
       });
+    // .then(function () {});
   };
 
   return (
@@ -95,3 +80,8 @@ function App() {
 }
 
 export default App;
+
+// setDefinitions((definitions) => {
+//   console.log(definitions);
+//   return definitions;
+// });
